@@ -1,7 +1,5 @@
 # Multicast_Delegates
 
-# Multicast_Delegates
-
 # Definition of Multicast Delegates
   - Multicast Delegates can bound to more than one listner to trigger their callback functions and broadcast events to all of them at once.
   - If we try to bound single delegates to more then one callback function it will only trigger the function that was last bound to it. 
