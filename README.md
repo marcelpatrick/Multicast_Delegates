@@ -26,23 +26,9 @@ DECLARE_MULTICAST_DELEGATE_OneParam(MyMulticastDelegate, FString);
 
 UCLASS()
 class MULTICAST_DELEGATES_API ASender : public AActor
-{
-	GENERATED_BODY()
-	
+{	
 public:	
-	// Sets default values for this actor's properties
-	ASender();
-
 	void Send();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	MyMulticastDelegate MyDelegate;
 
 };
@@ -59,12 +45,25 @@ void ASender::Send()
 ```
 
 # 3- CALLBACK: DECLARE
-  - In the Receiver header file, declare an instance of the sender class 
+  - In the Receiver header file, declare an instance variable of the sender class 
   - Declare a delegate handle to manage the callback events and delegate invocation list
   - Declare a Receive() function to receive the FString param broadcasted by the Delegate
 
+```cpp
+public:	
+	UFUNCTION()
+	void Receive(FString Message);
 
+private:
+	ASender* MySender;
+	FDelegateHandle MyDelegateHandle; 
+```
 
+# 4- CALLBACK: DEFINE
+  - In the receiver implementation file, on begin play, find all actors with "Sender" tag and append them to an array of actors
+  - Fetch the first element in the array, cast it to a Sender type and save it into the sender class instance variable
+  - Use the sender object to access its delegate object and bind it to the callback function Receive() using AddUObject and adding it to the delegate's invocation list
+  - Define the Receive() function to receive the FString param and print it  
 
 
 
