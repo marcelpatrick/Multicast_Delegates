@@ -52,7 +52,7 @@ void ASender::Send()
 }
 ```
 
-# 3- CALLBACK: DECLARE
+# 3- CALLBACK: DECLARE (DELEGATE HANDLE)
   - In the Receiver header file, declare an instance variable of the sender class and forward declare it (also include the reference for this class)
   - Declare a delegate handle to manage the callback events and delegate invocation list
   - Declare a Receive() function to receive the FString param broadcasted by the Delegate
@@ -72,7 +72,7 @@ private:
 	FDelegateHandle MyDelegateHandle; 
 ```
 
-# 4- CALLBACK: DEFINE
+# 4- CALLBACK: DEFINE (FIND AND BIND)
   - In the receiver implementation file, define Find() to find all actors with "Sender" tag and append them to an array of actors
   - Fetch the first element in the array, cast it to a Sender type and save it into the sender class instance variable
   - Define the Bind() function. Use the sender object to access its delegate object and bind it to the callback function Receive() using AddUObject and subscribing it to the delegate's invocation list
