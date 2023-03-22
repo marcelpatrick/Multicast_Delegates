@@ -36,14 +36,11 @@ public:
 
 # 2- DELEGATE: DEFINE (BROADCAST)
   - in the Sender implementation file, Implement the Send() function and in it use the delegate object to broadcast the content to the callback receiver function and any other function that subscribes to this broadcast.
-  - Call Send() on BeginPlay()
 
 ```cpp
 void ASender::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Send();
 }
 
 void ASender::Send()
@@ -57,7 +54,7 @@ void ASender::Send()
   - Declare a delegate handle to manage the callback events and delegate invocation list
   - Declare a Receive() function to receive the FString param broadcasted by the Delegate
   - Declare a Find() function to find the Sender actors in the world
-  - Declare a Bind() function to subscrive the Receibe() callback function in the Receiver to the Send() delegate function in the Sender
+  - Declare a Bind() function to subscrive the Receive() callback function in the Receiver to the Send() delegate function in the Sender
 
 ```cpp
 public:	
@@ -77,6 +74,7 @@ private:
   - Define the Bind() function. Use the sender object to access its delegate object and bind it to the callback function Receive() using AddUObject and subscribing it to the delegate's invocation list
   - Define the Receive() function to receive the FString param and print it  
   - Call Find() and Bind() from BeginPlay()
+  - Call Send() from Sender class.
 
 ```cpp
 void AReceiver::BeginPlay()
@@ -87,6 +85,7 @@ void AReceiver::BeginPlay()
 
 	Bind();
 	
+	MySender->Send();
 }
 
 void AReceiver::Find()
